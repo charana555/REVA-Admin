@@ -2,6 +2,8 @@ import React ,{useRef , useState} from 'react'
 import {Card , Form , Button, Alert ,Container} from "react-bootstrap"
 import { useAuth } from '../Context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import  bgvideo from '../assets/revavideo.mp4'
+
 
 
 const Signin = () => {
@@ -28,9 +30,9 @@ const Signin = () => {
   return (
    <>
    <Container className='d-flex align-items-centre justify-content-centre' style={{minHeight : "100vh"}}>
-        <div className='w-100' style={{maxWidth : "400px"}}>
-     <Card className = 'w-100'>
-     <Card.Body className='mw-30'>
+        <div className='w-100' style={{minwidth : "400px"}}>
+     <Card className = 'w-100 '>
+     <Card.Body className='w-50 m-auto'>
      <h2 className="text-centre mb-4">Sign In</h2>
             {error && <Alert varient="danger">{error}</Alert>}
             <Form onSubmit={handleInput}>
@@ -45,7 +47,11 @@ const Signin = () => {
                 <Button disabled = {loading} className='w-100' type='submit'>Sign In</Button>
             </Form> 
             </Card.Body>
+            <div className='main'>
+            <video src={bgvideo} autoPlay loop muted />
+     </div>
      </Card>
+     
      </div>
      </Container>
       </> 
