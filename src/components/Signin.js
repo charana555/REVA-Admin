@@ -30,9 +30,9 @@ const Signin = () => {
   return (
    <>
    <Container className='d-flex align-items-centre justify-content-centre' style={{minHeight : "100vh"}}>
-        <div className='w-100' style={{minwidth : "400px"}}>
-     <Card className = 'w-100 '>
-     <Card.Body className='w-50 m-auto'>
+        <div className='w-100' >
+     <Card className = 'w-100 m-auto wid' style={{maxwidth : "400px"}}>
+     <Card.Body className='w-100 m-auto'>
      <h2 className="text-centre mb-4">Sign In</h2>
             {error && <Alert varient="danger">{error}</Alert>}
             <Form onSubmit={handleInput}>
@@ -47,10 +47,10 @@ const Signin = () => {
                 <Button disabled = {loading} className='w-100' type='submit'>Sign In</Button>
             </Form> 
             </Card.Body>
-            <div className='main'>
+     </Card>
+     <div className='main'>
             <video src={bgvideo} autoPlay loop muted />
      </div>
-     </Card>
      
      </div>
      </Container>
