@@ -11,8 +11,8 @@ function App() {
         <Router>
       <AuthProvider>
           <Routes>
-             <Route  path='/dashboard' element = { <Dash/> } />
-             <Route exact path='/' element ={ <SignIn/> } />
+             <Route  exact path='/' element = { <Dash/> } />
+             <Route  path='/signin' element ={ <SignIn/> } />
           </Routes>
       </AuthProvider>
         </Router>
