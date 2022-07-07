@@ -14,9 +14,7 @@ export default function Dash() {
     const navigate = useNavigate()
     const {  Logout } = useAuth()
 
-    function refresh(){
-        window.location.reload(true)
-    }
+    
 
     async function handleLogout(){
         try{
@@ -103,7 +101,6 @@ export default function Dash() {
         });
        if(res.status === 200){
             window.alert("Successfully updated")
-            refresh()
        }
     }
     const declinRecord = async (record) =>{
@@ -121,7 +118,6 @@ export default function Dash() {
         });
         if(res.status === 200){
             window.alert("Successfully updated")
-            refresh()
        }
     }
 
