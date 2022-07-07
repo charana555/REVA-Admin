@@ -15,7 +15,7 @@ export default function Dash() {
     const {  Logout } = useAuth()
 
     function refresh(){
-        window.location.reload(false)
+        window.location.reload()
     }
 
     async function handleLogout(){
