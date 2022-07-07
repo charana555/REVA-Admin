@@ -14,7 +14,9 @@ export default function Dash() {
     const navigate = useNavigate()
     const {  Logout } = useAuth()
 
-    
+    const refresh = () =>{
+        window.location.reload(true)
+    }
 
     async function handleLogout(){
         try{
@@ -72,12 +74,20 @@ export default function Dash() {
         },
         {
             key:'6',
-            title:'confirmation',
+            title:'Accept',
             render: (record) =>{
                 return <>
                     <CheckSquareFilled onClick={() =>{
                         accpetRecord(record)
                     }} style={{color : 'green' , marginRight : 20 , fontSize: '35px'}} />
+                </>
+            }
+        },
+        {
+            key:'7',
+            title:'Reject',
+            render: (record) =>{
+                return <>
                     <DeleteFilled  onClick = {() =>{
                         declinRecord(record)
                     }} style={{color : 'red' , marginLeft : 20 , fontSize: '35px'}}/>
@@ -101,6 +111,7 @@ export default function Dash() {
         });
        if(res.status === 200){
             window.alert("Successfully updated")
+            refresh()
        }
     }
     const declinRecord = async (record) =>{
@@ -118,6 +129,7 @@ export default function Dash() {
         });
         if(res.status === 200){
             window.alert("Successfully updated")
+            refresh()
        }
     }
 
@@ -142,7 +154,7 @@ export default function Dash() {
             </Container>
             </Navbar>
             {error && <Alert varient="danger">{error}</Alert>}
-            <div class="d-flex justify-content-center m-4"><h2>Dashboard</h2></div>
+            <div className="d-flex justify-content-center m-4"><h2>Dashboard</h2></div>
         
     <Container>
         <Table columns={columns} dataSource={data}></Table>
