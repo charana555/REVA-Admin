@@ -21,7 +21,7 @@ export default function Dash() {
     async function handleLogout(){
         try{
             await Logout();
-            navigate("/Signin")
+            navigate("/")
         }catch{
             setError("failed to Logout")
         }
