@@ -19,7 +19,7 @@ const Signin = () => {
     try {  
         setLoading(true)
        await Signin(emailRef.current.value , passwordRef.current.value)
-       navigate("/dash")
+       navigate("/test")
     } catch{
         setError("Invalid Credentials")
     }
