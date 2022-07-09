@@ -1,6 +1,8 @@
 import React from 'react';
 import SignIn from './Signin';
-import Dash from './Dash';
+import Test from './Test';
+import Appointments from './Appointments';
+import Docters from './Docters';
 import {BrowserRouter as Router ,Routes ,Route } from "react-router-dom"
 import { AuthProvider } from '../Context/AuthContext';
 
@@ -11,7 +13,9 @@ function App() {
         <Router>
       <AuthProvider>
           <Routes>
-             <Route   path='/dash' element = { <Dash/> } />
+             <Route   path='/test' element = { <Test/> } />
+             <Route   path='/appointments' element = { <Appointments/> } />
+             <Route   path='/docters' element = { <Docters/> } />
              <Route  exact path='/' element ={ <SignIn/> } />
           </Routes>
       </AuthProvider>

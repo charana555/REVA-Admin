@@ -2,12 +2,12 @@ import "antd/dist/antd.css"
 import React,{ useState , useEffect}from 'react'
 import { Table } from "antd"
 import { Button ,Container , Nav , Navbar , Form ,Alert } from "react-bootstrap"
-import {  useNavigate} from "react-router-dom"
+import {  useNavigate , Link } from "react-router-dom"
 import {DeleteFilled ,CheckSquareFilled } from "@ant-design/icons"
 import { useAuth } from '../Context/AuthContext'
 
 
-export default function Dash() {
+export default function Test() {
     const [data,setData] = useState()
     const [error,setError] = useState("")
 
@@ -31,7 +31,7 @@ export default function Dash() {
     useEffect(() => {
         const getdata = async () =>{
             try {
-            const res = await fetch("https://reva-health-bd.herokuapp.com/api/v1/appointment/all?uid=sdjkhb")
+            const res = await fetch("https://reva-health-bd.herokuapp.com/api/v1/appointment/tests?uid=sdjkhb")
             const data = await res.json();
             // console.log(data);
             setData(data)
@@ -50,31 +50,43 @@ export default function Dash() {
         {
             key:'1',
             title:'Request ID',
-            dataIndex:'aid'
+            dataIndex:'aid',
+            align:'center'
         },
         {
             key:'2',
-            title:'Test ID',
-            dataIndex:'tid',
+            title:'User ID',
+            dataIndex:'uid',
+            align:'center'
         },
         {
             key:'3',
-            title:'Description',
-            dataIndex:'description'
+            title:'Test ID',
+            dataIndex:'tid',
+            align:'center'
         },
         {
             key:'4',
-            title:'Date',
-            dataIndex:'date'
+            title:'Description',
+            dataIndex:'description',
+            align:'center'
         },
         {
             key:'5',
-            title:'Status',
-            dataIndex:'astatus'
+            title:'Date',
+            dataIndex:'date',
+            align:'center'
         },
         {
             key:'6',
+            title:'Status',
+            dataIndex:'astatus',
+            align:'center'
+        },
+        {
+            key:'7',
             title:'Accept',
+            align:'center',
             render: (record) =>{
                 return <>
                     <CheckSquareFilled onClick={() =>{
@@ -84,7 +96,7 @@ export default function Dash() {
             }
         },
         {
-            key:'7',
+            key:'8',
             title:'Reject',
             render: (record) =>{
                 return <>
@@ -136,8 +148,8 @@ export default function Dash() {
   return (
     <>
     <header>
-      <Navbar bg="dark" expand="lg" variant="dark">
-            <Container fluid>
+      <Navbar bg="dark" expand="lg" variant="dark" >
+            <Container fluid >
                 <Navbar.Brand href="#">REVA Health APP</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
@@ -146,6 +158,9 @@ export default function Dash() {
                     style={{ maxHeight: '100px' }}
                     navbarScroll
                 >
+                 <Link className='navLink' to="/test">Tests</Link>
+                 <Link className='navLink' to="/appointments">Appointments</Link>
+                 <Link className='navLink' to="/docters">Docters</Link>
                 </Nav>
                 <Form className="d-flex">
                     <Button onClick={handleLogout} variant="outline-danger">Logout</Button>
@@ -154,7 +169,7 @@ export default function Dash() {
             </Container>
             </Navbar>
             {error && <Alert varient="danger">{error}</Alert>}
-            <div className="d-flex justify-content-center m-4"><h2>Dashboard</h2></div>
+            <div className="d-flex justify-content-center m-4"><h2>Tests</h2></div>
         
     <Container>
         <Table columns={columns} dataSource={data}></Table>
