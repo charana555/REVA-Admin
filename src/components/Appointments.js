@@ -5,6 +5,7 @@ import { Button ,Container , Nav , Navbar , Form ,Alert } from "react-bootstrap"
 import {  useNavigate , Link} from "react-router-dom"
 import {DeleteFilled ,CheckSquareFilled } from "@ant-design/icons"
 import { useAuth } from '../Context/AuthContext'
+import logo from '../assets/logo192.png'
 
 
 export default function Appointments() {
@@ -151,7 +152,13 @@ export default function Appointments() {
     <header>
       <Navbar bg="dark" expand="lg" variant="dark" >
             <Container fluid >
-                <Navbar.Brand href="#">REVA Health APP</Navbar.Brand>
+                <Navbar.Brand href="#"><img
+                        alt=""
+                        src= {logo}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top mr-3"
+                 />REVA Health APP</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                 <Nav

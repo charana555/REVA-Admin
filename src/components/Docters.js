@@ -3,6 +3,7 @@ import { useNavigate , Link } from 'react-router-dom'
 import { Button ,Container , Nav , Navbar , Form , Alert  } from "react-bootstrap"
 import { useAuth } from '../Context/AuthContext'
 import { Table } from 'antd'
+import logo from '../assets/logo192.png'
 
 
 export default function Docters() {
@@ -77,7 +78,13 @@ export default function Docters() {
     <>
         <Navbar bg="dark" expand="lg" variant="dark" >
             <Container fluid >
-                <Navbar.Brand href="#">REVA Health APP</Navbar.Brand>
+                <Navbar.Brand href="#"><img
+                        alt=""
+                        src= {logo}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top mr-3"
+                 />REVA Health APP</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                 <Nav
