@@ -34,7 +34,7 @@ export default function Appointments() {
             try {
             const res = await fetch("https://reva-health-bd.herokuapp.com/api/v1/appointment/doctor?uid=sdjkhb")
             const data = await res.json();
-            // console.log(data);
+            console.log(data);
             setData(data)
             
           }
@@ -80,12 +80,18 @@ export default function Appointments() {
         },
         {
             key:'6',
+            title:'Phone',
+            dataIndex:'phNo',
+            align:'center'
+        },
+        {
+            key:'7',
             title:'Status',
             dataIndex:'astatus',
             align:'center'
         },
         {
-            key:'7',
+            key:'8',
             title:'Accept',
             align:'center',
             render: (record) =>{
@@ -97,7 +103,7 @@ export default function Appointments() {
             }
         },
         {
-            key:'8',
+            key:'9',
             title:'Reject',
             align:'center',
             render: (record) =>{

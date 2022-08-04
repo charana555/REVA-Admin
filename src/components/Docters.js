@@ -44,6 +44,12 @@ export default function Docters() {
         },
         {
             key:'4',
+            title:'Phone',
+            dataIndex:'phNo',
+            align:'center'
+        },
+        {
+            key:'5',
             title:'Availability',
             align:'center',
             render : (text) => {
@@ -61,7 +67,7 @@ export default function Docters() {
             try {
             const res = await fetch("https://reva-health-bd.herokuapp.com/api/v1/doctor/all?uid=sdjkhb")
             const data = await res.json();
-            // console.log(data);
+            console.log(data);
             setData(data)
             
           }
