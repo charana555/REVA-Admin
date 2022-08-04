@@ -75,7 +75,6 @@ export default function Appointments() {
           <thead className=' bg-gray-300' >
             <tr>
               <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Request ID</th>
-              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >User ID</th>
               <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Docter ID</th>
               <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Description</th>
               <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Date</th>
@@ -90,10 +89,9 @@ export default function Appointments() {
             data.map((item ,i) => (
               <tr key={item._id} className = {i%2===0 ? `bg-white`:`bg-gray-100`} >
                 <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-28'> {item.aid} </td>
-                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24 ' > { item.uid } </td>
-                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24' >{ item.tid }</td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-32' >{ item.did }</td>
                 <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 ' >{item.description}</td>
-                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-32' > {item.date} </td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-32' > {(item.date).slice(0,10)} </td>
                 <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24' > {item.phNo} </td>
                 {
                   item.astatus==="Accepted" ? <td className=' font-semibold whitespace-nowrap px-3 py-1.5 text-sm text-green-800 w-24' > {item.astatus} </td> :

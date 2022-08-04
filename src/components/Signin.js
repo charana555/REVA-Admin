@@ -28,7 +28,7 @@ const Signin = () => {
 
   return (
     <section className=' w-screen h-[90vh] bg-gray-100 flex items-center justify-center ' >
-      <div className=' min-w-[400px] bg-gray-600 shadow-xl '>
+      <div className='min-w-sm w-[350px] md:w-[400px] bg-gray-600 shadow-xl '>
         <div className='w-100  ' >
         <video className='mx-auto my-6 bg-transparent' height="60" width="60" loop autoPlay muted><source src={video}/></video>
         </div>
