@@ -1,33 +1,15 @@
-import "antd/dist/antd.css"
-import React,{ useState , useEffect}from 'react'
-import { Table } from "antd"
-import { Button ,Container , Nav , Navbar , Form ,Alert } from "react-bootstrap"
-import {  useNavigate , Link} from "react-router-dom"
-import {DeleteFilled ,CheckSquareFilled } from "@ant-design/icons"
-import { useAuth } from '../Context/AuthContext'
-import logo from '../assets/logo192.png'
+import React, { useState , useEffect } from 'react'
+import { AiFillCheckSquare , AiFillCloseSquare} from "react-icons/ai";
 
+import Navbar from './Navbar'
 
 export default function Appointments() {
     const [data,setData] = useState()
-    const [error,setError] = useState("")
-
-    const navigate = useNavigate()
-    const {  Logout } = useAuth()
+    const [loading,setLoding] = useState(true);
 
     const refresh = () =>{
         window.location.reload(true)
     }
-
-    async function handleLogout(){
-        try{
-            await Logout();
-            navigate("/")
-        }catch{
-            setError("failed to Logout")
-        }
-    }
-    
 
     useEffect(() => {
         const getdata = async () =>{
@@ -36,159 +18,95 @@ export default function Appointments() {
             const data = await res.json();
             console.log(data);
             setData(data)
+            setLoding(false)
             
           }
              catch  {
-          setError("Failed to load Data")
+          window.alert("Failed to load Data")
         }}
 
         getdata()
     },[])
 
-  
 
-    const columns = [
-        {
-            key:'1',
-            title:'Request ID',
-            dataIndex:'aid',
-            align:'center'
-        },
-        {
-            key:'2',
-            title:'User ID',
-            dataIndex:'uid',
-            align:'center'
-        },
-        {
-            key:'3',
-            title:'Doctor ID',
-            dataIndex:'did',
-            align:'center'
-        },
-        {
-            key:'4',
-            title:'Description',
-            dataIndex:'description',
-            align:'center'
-        },
-        {
-            key:'5',
-            title:'Date',
-            dataIndex:'date',
-            align:'center'
-        },
-        {
-            key:'6',
-            title:'Phone',
-            dataIndex:'phNo',
-            align:'center'
-        },
-        {
-            key:'7',
-            title:'Status',
-            dataIndex:'astatus',
-            align:'center'
-        },
-        {
-            key:'8',
-            title:'Accept',
-            align:'center',
-            render: (record) =>{
-                return <>
-                    <CheckSquareFilled onClick={() =>{
-                        accpetRecord(record)
-                    }} style={{color : 'green' , marginRight : 20 , fontSize: '35px'}} />
-                </>
-            }
-        },
-        {
-            key:'9',
-            title:'Reject',
-            align:'center',
-            render: (record) =>{
-                return <>
-                    <DeleteFilled  onClick = {() =>{
-                        declinRecord(record)
-                    }} style={{color : 'red' , marginLeft : 20 , fontSize: '35px'}}/>
-                </>
-            }
-        }
-    ]
-
-    const accpetRecord = async (record) =>{
-        const url = `https://reva-health-bd.herokuapp.com/api/v1/appointment/${record.aid}`;
-        console.log(url);
-        const res = await fetch(url , {
-            method : "PUT" ,
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uid : "sdjkhb",
-                astatus:"Accepted"
-            })
-        });
-       if(res.status === 200){
-            window.alert("Successfully updated")
-            refresh()
-       }
-    }
-    const declinRecord = async (record) =>{
-        const url = `https://reva-health-bd.herokuapp.com/api/v1/appointment/${record.aid}`;
-        console.log(url);
-        const res = await fetch(url , {
-            method : "PUT" ,
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                uid : "sdjkhb",
-                astatus:"Rejected"
-            })
-        });
+      const accpetRecord = async (record) =>{
+          const url = `https://reva-health-bd.herokuapp.com/api/v1/appointment/${record.aid}`;
+          console.log(url);
+          const res = await fetch(url , {
+              method : "PUT" ,
+              headers:{
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  uid : "sdjkhb",
+                  astatus:"Accepted"
+              })
+          });
         if(res.status === 200){
-            window.alert("Successfully updated")
-            refresh()
-       }
-    }
+              window.alert("Successfully updated")
+              refresh()
+        }
+      }
+      const declinRecord = async (record) =>{
+          const url = `https://reva-health-bd.herokuapp.com/api/v1/appointment/${record.aid}`;
+          console.log(url);
+          const res = await fetch(url , {
+              method : "PUT" ,
+              headers:{
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  uid : "sdjkhb",
+                  astatus:"Rejected"
+              })
+          });
+          if(res.status === 200){
+              window.alert("Successfully updated")
+              refresh()
+        }
+      }
 
   return (
     <>
-    <header>
-      <Navbar bg="dark" expand="lg" variant="dark" >
-            <Container fluid >
-                <Navbar.Brand href="#"><img
-                        alt=""
-                        src= {logo}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top mr-3"
-                 />REVA Health APP</Navbar.Brand>
-                <Navbar.Toggle aria-controls="navbarScroll" />
-                <Navbar.Collapse id="navbarScroll">
-                <Nav
-                    className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
-                    navbarScroll
-                >
-                <Link className='navLink' to="/test">Tests</Link>
-                 <Link className='navLink' to="/appointments">Appointments</Link>
-                 <Link className='navLink' to="/docters">Docters</Link>
-                </Nav>
-                <Form className="d-flex">
-                    <Button onClick={handleLogout} variant="outline-danger">Logout</Button>
-                </Form>
-                </Navbar.Collapse>
-            </Container>
-            </Navbar>
-            {error && <Alert varient="danger">{error}</Alert>}
-            <div className="d-flex justify-content-center m-4"><h2>Appointments</h2></div>
-        
-    <Container>
-        <Table columns={columns} dataSource={data}></Table>
-    </Container>
-    </header>
+      <Navbar/> 
+      <h1 className=' text-center text-4xl my-3 ' >Appointments</h1>
+      <div className='border border-b-2 w-[80vw] mx-auto overflow-auto rounded-lg shadow' >
+        <table className=' w-full' >
+          <thead className=' bg-gray-300' >
+            <tr>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Request ID</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >User ID</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Docter ID</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Description</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Date</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Phone</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide text-left' >Status</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide ' >Accept</th>
+              <th className=' p-3 font-semibold text-sm tracking-wide ' >Reject</th>
+            </tr>
+          </thead>
+          {!loading && <tbody className=' divide-y divide-gray-200 '>
+          {
+            data.map((item ,i) => (
+              <tr key={item._id} className = {i%2===0 ? `bg-white`:`bg-gray-100`} >
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-28'> {item.aid} </td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24 ' > { item.uid } </td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24' >{ item.tid }</td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 ' >{item.description}</td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-32' > {item.date} </td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24' > {item.phNo} </td>
+                {
+                  item.astatus==="Accepted" ? <td className=' font-semibold whitespace-nowrap px-3 py-1.5 text-sm text-green-800 w-24' > {item.astatus} </td> :
+                  <td className=' font-semibold whitespace-nowrap px-3 py-1.5 text-sm text-red-800 w-24 ' > {item.astatus} </td>
+                }
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24 text-center ' ><button onClick={() => accpetRecord(item) } className=' text-4xl text-green-700 hover:text-green-600 ' ><AiFillCheckSquare /></button></td>
+                <td className=' whitespace-nowrap px-3 py-1.5 text-sm text-gray-800 w-24 text-center ' ><button onClick={() => declinRecord(item) }  className=' text-4xl text-red-700 hover:text-red-600 '><AiFillCloseSquare/></button></td>
+              </tr>
+            ))
+          }
+          </tbody> }
+        </table>
+      </div>
     </>
   )
 }

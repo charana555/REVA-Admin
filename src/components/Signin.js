@@ -1,60 +1,49 @@
 import React ,{useRef , useState} from 'react'
-import {Card , Form , Button, Alert ,Container} from "react-bootstrap"
+
+import video from "../assets/revavideo.mp4"
+
 import { useAuth } from '../Context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import  bgvideo from '../assets/revavideo.mp4'
-
 
 
 const Signin = () => {
   const emailRef = useRef()
   const passwordRef = useRef()
   const { Signin } = useAuth()
-  const [error,setError] = useState("")
   const [loading,setLoading] = useState(false)
   const navigate = useNavigate()
 
-  async function handleInput(e) {
-    e.preventDefault();
-    try {  
-        setLoading(true)
-       await Signin(emailRef.current.value , passwordRef.current.value)
-       navigate("/test")
-    } catch{
-        setError("Invalid Credentials")
+    async function handleInput(e) {
+      e.preventDefault();
+      try {  
+          setLoading(true)
+        await Signin(emailRef.current.value , passwordRef.current.value)
+        navigate("/test")
+      } catch{
+          window.alert("Invalid Credentials")
+      }
+
+      setLoading(false)
     }
 
-    setLoading(false)
-  }
-
   return (
-   <>
-   <Container className='d-flex align-items-centre justify-content-centre' style={{minHeight : "100vh"}}>
-        <div className='w-100' >
-     <Card className = 'w-100 m-auto wid' style={{maxwidth : "400px"}}>
-     <Card.Body className='w-100 m-auto'>
-     <h2 className="text-centre mb-4">Sign In</h2>
-            {error && <Alert varient="danger">{error}</Alert>}
-            <Form onSubmit={handleInput}>
-                <Form.Group id="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" ref={emailRef} required/>
-                </Form.Group>
-                <Form.Group id="password" className='mb-4'>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" ref={passwordRef} required/>
-                </Form.Group>
-                <Button disabled = {loading} className='w-100' type='submit'>Sign In</Button>
-            </Form> 
-            </Card.Body>
-     </Card>
-     <div className='main'>
-            <video src={bgvideo} autoPlay loop muted />
-     </div>
-     
-     </div>
-     </Container>
-      </> 
+    <section className=' w-screen h-[90vh] bg-gray-100 flex items-center justify-center ' >
+      <div className=' min-w-[400px] bg-gray-600 shadow-xl '>
+        <div className='w-100  ' >
+        <video className='mx-auto my-6 bg-transparent' height="60" width="60" loop autoPlay muted><source src={video}/></video>
+        </div>
+        <h2 className='text-3xl text-white w-full text-center mb-4' >Login</h2>
+          <div className='w-[90%] mx-auto '>
+            <input className=' w-full py-2 rounded-full px-4 focus:outline-none my-3 '  placeholder= 'Email' ref={emailRef} type="email"/>
+          </div>
+          <div className='w-[90%] mx-auto '>
+            <input className=' w-full py-2 rounded-full px-4 focus:outline-none my-3 '  placeholder= 'Password' ref={passwordRef} type="password" />
+          </div>
+        <div className='w-[90%] mx-auto py-5 '>
+          <button disabled={loading} onClick={handleInput} className='w-full bg-orange-500 text-2xl text-white py-2 rounded-full hover:bg-orange-600 transition duration-300 ' >Login</button>
+        </div>   
+      </div>
+</section>
   )
 }
 
