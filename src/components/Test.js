@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { AiFillCheckSquare, AiFillCloseSquare } from "react-icons/ai";
-// import {  useNavigate  } from "react-router-dom"
-// import { useAuth } from '../Context/AuthContext'
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 export default function Test() {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
 
-  // const navigate = useNavigate()
-  // const {  Logout } = useAuth()
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
 
   const refresh = () => {
     window.location.reload(true);
@@ -23,6 +23,12 @@ export default function Test() {
   //         setError("failed to Logout")
   //     }
   // }
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   useEffect(() => {
     const getdata = async () => {

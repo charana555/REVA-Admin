@@ -1,11 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { AiFillCheckSquare, AiFillCloseSquare } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 import Navbar from "./Navbar";
 
 export default function Appointments() {
   const [data, setData] = useState();
   const [loading, setLoding] = useState(true);
+
+  const navigate = useNavigate();
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser, navigate]);
 
   const refresh = () => {
     window.location.reload(true);
